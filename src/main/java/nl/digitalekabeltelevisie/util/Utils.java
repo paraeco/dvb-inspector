@@ -701,11 +701,14 @@ public final class Utils {
 
 		// this is where we loose formatting, like newlines and character emphasis
 		for (int i = offset; i < (offset + length); i++) {
+			/*
 			final byte c = b[i];
 			if ((c > -97) && // bytes are signed, what we really mean is (b[i]<0x80)||(b[i]>0x9f)
 					(c != 0)) { 
 				filteredBytes[filteredLength++] = c;
 			}
+			*/
+			filteredBytes[filteredLength++] = b[i];
 		}
 
 		if(charset==null){
@@ -728,6 +731,8 @@ public final class Utils {
 					} // else == reserved for future use, so not implemented
 				}else if((selectorByte==0x11 )){ // ISO/IEC 10646
 					charset = Charset.forName("UTF-16");
+				}else if((selectorByte==0x14 )){ // BIG-5 subset of ISO/IEC 10646, UCS-2BE
+					charset = Charset.forName("UTF-16");
 				}else if((selectorByte==0x15 )){ // UTF-8 encoding of ISO/IEC 10646
 					charset = Charset.forName("UTF-8");
 				}
@@ -745,6 +750,9 @@ public final class Utils {
 				charset = Charset.forName("ISO-8859-1");
 			}
 		}
+		else { // assume UTF-8 encoding, ASCII-compatible
+			charset = Charset.forName("UTF-8");
+		}
 		return charset;
 	}
 
@@ -759,6 +767,8 @@ public final class Utils {
 					charsetLen = 3;
 				}
 			}else if((selectorByte==0x11 )){ // ISO/IEC 10646
+				charsetLen = 1;
+			}else if((selectorByte==0x14 )){ // BIG-5 subset of ISO/IEC 10646
 				charsetLen = 1;
 			}else if((selectorByte==0x15 )){ // UTF-8 encoding of ISO/IEC 10646
 				charsetLen = 1;

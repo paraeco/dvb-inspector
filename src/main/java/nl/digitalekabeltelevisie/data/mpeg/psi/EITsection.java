@@ -189,7 +189,7 @@ public class EITsection extends TableSectionExtendedSyntax implements HTMLSource
 					r1.append(Utils.escapeHTML(shortEventDescriptor.getEventName().toString())).append("</b><br>");
 					final String shortText = shortEventDescriptor.getText().toString();
 					if((shortText!=null)&&!shortText.isEmpty()){
-						r1.append(escapeHtmlBreakLines(shortText)).append("<br>");
+						r1.append(Utils.escapeHTML(shortText)).append("<br>");
 					}
 					r1.append("<br>");
 				}

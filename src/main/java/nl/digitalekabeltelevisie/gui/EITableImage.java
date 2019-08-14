@@ -57,6 +57,7 @@ import nl.digitalekabeltelevisie.data.mpeg.psi.EITsection;
 import nl.digitalekabeltelevisie.data.mpeg.psi.EITsection.Event;
 import nl.digitalekabeltelevisie.data.mpeg.psi.TDTsection;
 import nl.digitalekabeltelevisie.util.Interval;
+import nl.digitalekabeltelevisie.util.Utils;
 
 /**
  * Class to create a grid image of EIT information, like the EPG in decoders.
@@ -420,7 +421,7 @@ public class EITableImage extends JPanel implements ComponentListener,ImageSourc
 					if(name==null){
 						r1.append("Service ").append(serviceId);
 					}else{
-						r1.append(name.toEscapedHTML());
+						r1.append(Utils.escapeHTML(name.toString()));
 					}
 					r1.append("</b><br>");
 
